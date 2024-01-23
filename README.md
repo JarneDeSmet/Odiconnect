@@ -13,7 +13,7 @@ you can preview the current site here: https://odiconnect.jarnedesmet.ikdoeict.b
 
 ## Visuals
 
-![](Screenshots/Landing.png)
+![](Screenshots/landing.png)
 ![](Screenshots/login.png)
 ![](Screenshots/register.png)
 ![](Screenshots/chat.png)
