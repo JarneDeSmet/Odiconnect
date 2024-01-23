@@ -6,7 +6,6 @@ import type {
   RouteRecordNormalized
 } from 'vue-router'
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth'
-import { useAuthStore } from '@/stores/AuthStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

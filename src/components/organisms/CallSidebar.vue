@@ -1,36 +1,67 @@
 <script setup lang="ts">
-import type { Ref } from 'vue'
-import { ref } from 'vue'
+import type {Ref} from 'vue'
+import {onUnmounted, ref, watch} from 'vue'
 import FormField from '@/components/molecules/FormField.vue'
 import ChatBubble from '@/components/atoms/chatBubble.vue'
-import type { ChatType } from '@/interfaces'
-import { Timestamp } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
+import type {ChatType} from '@/interfaces'
+import {Timestamp} from 'firebase/firestore'
+import {useAuthStore} from "@/stores/AuthStore";
+import {useBunStore} from "@/stores/BunStore";
+import {useTensorflowStore} from "@/stores/TensorflowStore";
 
 const expanded: Ref<boolean> = ref(localStorage.getItem('expanded') === 'true')
 const message: Ref<string> = ref('')
+const authStore = useAuthStore()
+const bunStore = useBunStore()
+const tensorStore = useTensorflowStore()
+
 const ToggleMenu = (): void => {
   expanded.value = !expanded.value
   localStorage.setItem('expanded', String(expanded.value))
 }
-const messageTest: ChatType = {
-  sender: {
-    email: 'jarnedesmet@gmail.com',
-    username: 'jarne',
-    uid: 'rsrg'
-  },
-  text: 'fsfsdfsdfsdfsdf',
-  timestamp: Timestamp.fromDate(new Date())
+
+const sendChatMessage = (): void => {
+  if (message.value) {
+    const data: ChatType = {
+      sender: {
+        email: authStore.user!.email,
+        username: authStore.user!.username,
+        uid: authStore.user!.uid
+      },
+      text: message.value,
+      timestamp: Timestamp.fromDate(new Date()).toDate().toLocaleString()
+
+    };
+    bunStore.dataChannel?.send(JSON.stringify(data));
+
+    displayMessage(data);
+
+  }
+};
+const displayMessage = (data: ChatType): void => {
+  bunStore.messages.push(data)
+  message.value = ''
+
 }
-const messageTest2: ChatType = {
-  sender: {
-    email: 'jarnedesmet@gmail.com',
-    username: 'jarne',
-    uid: getAuth().currentUser?.uid
-  },
-  text: 'fsfsdfsdfsdfsdf',
-  timestamp: Timestamp.fromDate(new Date())
-}
+
+const unwatch = watch(
+    () => tensorStore.emoji,
+    () => {
+      if (tensorStore.emoji) {
+        if (tensorStore.emoji === 'i_love_you') {
+          message.value = '❤️'
+        } else if (tensorStore.emoji === 'thumbs_up') {
+          message.value = '👍'
+        } else if (tensorStore.emoji === 'victory') {
+          message.value = '✌️'
+        }
+      }
+    }
+)
+
+onUnmounted((): void => {
+  unwatch()
+})
 </script>
 
 <template>
@@ -41,45 +72,16 @@ const messageTest2: ChatType = {
       </button>
     </div>
 
-    <div class="chat">
-      <ul class="messages">
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
+    <div v-if=" bunStore.messages" class="chat">
+      <ul v-for="mes in bunStore.messages" :key="mes?.text" class="messages">
+        <li v-if="mes">
+          <chat-bubble :message="mes">{{ mes?.sender.username }}</chat-bubble>
         </li>
-        <li>
-          <chat-bubble :message="messageTest2">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest2">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest2">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest2">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest2">Jarne De Smet</chat-bubble>
-        </li>
-        <li>
-          <chat-bubble :message="messageTest">Jarne De Smet</chat-bubble>
-        </li>
+
       </ul>
     </div>
-    <form>
-      <form-field id="" v-model="message" type="text" />
+    <form @submit.prevent="sendChatMessage">
+      <form-field id="" v-model="message" type="text"/>
     </form>
   </aside>
 </template>
@@ -199,6 +201,7 @@ aside {
 
 form {
   margin-top: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 button {

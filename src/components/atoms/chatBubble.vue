@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import type { ChatType } from '@/interfaces'
 import { getAuth } from 'firebase/auth'
-import type { PropType } from 'vue'
+import type {PropType, Ref} from 'vue'
+import type {Timestamp as TimestampType } from "firebase/firestore";
+import {ref} from "vue";
+import {Timestamp} from 'firebase/firestore'
 
-defineProps({
+const props = defineProps({
   message: {
     type: Object as PropType<ChatType>,
     required: true
+  },
+  firebase:{
+    type: Boolean,
+    required: false
   }
 })
+const time:Ref<TimestampType> = ref(Timestamp.fromDate(new Date()))
+if (props.firebase){
+  time.value = props.message?.timestamp as Timestamp
+}
 </script>
 
 <template>
@@ -20,8 +31,11 @@ defineProps({
       <p>{{ message.text }}</p>
     </div>
 
-    <p class="timestamp" :class="message.sender.uid === getAuth().currentUser?.uid ? 'meTime' : ''">
-      {{ message.timestamp.toDate().toLocaleString() }}
+    <p v-if="firebase" class="timestamp" :class="message.sender.uid === getAuth().currentUser?.uid ? 'meTime' : ''">
+      {{ time.toDate().toLocaleString() }}
+    </p>
+    <p v-else class="timestamp" :class="message.sender.uid === getAuth().currentUser?.uid ? 'meTime' : ''">
+      {{ message.timestamp }}
     </p>
   </div>
 </template>
@@ -61,7 +75,7 @@ defineProps({
   }
 
   .me {
-    border-radius: 20px 20px 0px 20px;
+    border-radius: 20px 20px 0 20px;
     background: linear-gradient(93deg, #084eb8 0%, #052a61 100%);
 
     display: flex;

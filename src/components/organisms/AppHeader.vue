@@ -57,7 +57,6 @@ function ToggleHamButton(): void {
       <img src="@/assets/images/Logo.svg" alt="2 rings intertwined" />
       <p>Odiconnect</p>
     </router-link>
-
     <button
       aria-label="navigation"
       @click="ToggleHamButton"

@@ -28,14 +28,14 @@ const keepLoggedIn = ref(false)
 const emailError = computed(emailErr)
 const passwordError = computed(passwordErr)
 
-function emailErr() {
+function emailErr(): string | undefined {
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
   if (!submitted.value) return
   if (!email.value) return 'Email is not filled in'
   if (!emailRegex.test(email.value)) return 'Email invalid, did you forget @ or . ?'
 }
 
-function passwordErr() {
+function passwordErr(): string | undefined {
   if (!submitted.value) return
   if (!password.value) return 'Password is not filled in'
 }

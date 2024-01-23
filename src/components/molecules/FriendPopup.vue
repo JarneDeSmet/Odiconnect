@@ -2,7 +2,7 @@
 import { useAuthStore } from '@/stores/AuthStore'
 import { useFriendStore } from '@/stores/FriendStore'
 import FormField from '@/components/molecules/FormField.vue'
-import { computed, ref } from 'vue'
+import {computed, ComputedRef, ref} from 'vue'
 import type { Ref } from 'vue'
 import type { UserType } from '@/interfaces'
 import UserInfo from '@/components/molecules/UserInfo.vue'
@@ -14,7 +14,7 @@ const friendStore = useFriendStore()
 const search: Ref<string> = ref('')
 const text: Ref<string> = ref('')
 
-const filteredArray = computed((): Array<UserType> => {
+const filteredArray: ComputedRef = computed((): Array<UserType> => {
   const searchTerm: string = search.value.toLowerCase()
 
   if (friendStore.friendPopUp === 'add') {

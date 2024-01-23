@@ -5,7 +5,7 @@ import BlueButton from '@/components/atoms/BlueButton.vue'
 import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { doc, setDoc, addDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { FirebaseError } from '@firebase/util'
 import { useAuthStore } from '@/stores/AuthStore'
 import router from '@/router'
@@ -26,44 +26,44 @@ const emailError = computed(emailErr)
 const passwordError = computed(passwordErr)
 const repeatError = computed(repeatErr)
 
-function usernameErr() {
+function usernameErr(): string | undefined {
   if (!submitted.value) return
   if (!username.value) return 'Username is not filled in'
 }
 
-function emailErr() {
+function emailErr(): string | undefined {
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
   if (!submitted.value) return
   if (!email.value) return 'Email is not filled in'
   if (!emailRegex.test(email.value)) return 'Email invalid, did you forget @ or . ?'
 }
 
-function passwordErr() {
+function passwordErr(): string | undefined {
   if (!submitted.value) return
   if (!password.value) return 'Password is not filled in'
-  // return checkPassword(password.value)
+  return checkPassword(password.value)
 }
 
-function repeatErr() {
+function repeatErr(): string | undefined {
   if (!submitted.value) return
   if (!repeat.value) return 'Repeat password is not filled in'
   if (repeat.value !== password.value) return 'Passwords do not match'
-  // return checkPassword(password.value)
+   return checkPassword(password.value)
 }
 
-// function checkPassword(password) {
-//   if (!/[A-Z]/.test(password)) {
-//     return 'Password must contain at least one capital letter'
-//   }
-//
-//   if (!/\d/.test(password)) {
-//     return 'Password must contain at least one number'
-//   }
-//
-//   if (!/[!@#$%^&*]/.test(password)) {
-//     return 'Password must contain at least one symbol'
-//   }
-// }
+function checkPassword(password: string): string | undefined {
+  if (!/[A-Z]/.test(password)) {
+    return 'Password must contain at least one capital letter'
+  }
+
+  if (!/\d/.test(password)) {
+    return 'Password must contain at least one number'
+  }
+
+  if (!/[!@#$%^&*]/.test(password)) {
+    return 'Password must contain at least one symbol'
+  }
+}
 
 const tryRegister = (): void => {
   submitted.value = true

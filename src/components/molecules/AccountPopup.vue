@@ -14,7 +14,7 @@ const profile_picture: Ref = ref()
 const submitted: Ref<boolean> = ref(false)
 const nameError: ComputedRef = computed(nameErr)
 
-function nameErr() {
+function nameErr(): string | undefined {
   if (!submitted.value) return
   if (!authStore.user?.username) return 'name is not filled in'
 }

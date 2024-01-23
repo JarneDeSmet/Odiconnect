@@ -2,16 +2,16 @@
 import AppSidebar from '@/components/organisms/AppSidebar.vue'
 import DashboardHeader from '@/components/molecules/DashboardHeader.vue'
 import FriendPopup from '@/components/molecules/FriendPopup.vue'
-import { useFriendStore } from '@/stores/FriendStore'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
-import type { Ref } from 'vue'
+import {useFriendStore} from '@/stores/FriendStore'
+import {onMounted, onUnmounted, ref, watch} from 'vue'
+import type {Ref} from 'vue'
 import UserInfo from '@/components/molecules/UserInfo.vue'
 import gsap from 'gsap'
 import FormField from '@/components/molecules/FormField.vue'
 import ChatBubble from '@/components/atoms/chatBubble.vue'
 import AccountPopup from '@/components/molecules/AccountPopup.vue'
-import { useAuthStore } from '@/stores/AuthStore'
-import { useBunStore } from '@/stores/BunStore'
+import {useAuthStore} from '@/stores/AuthStore'
+import {useBunStore} from '@/stores/BunStore'
 import CallPopup from '@/components/molecules/CallPopup.vue'
 import router from '@/router'
 
@@ -25,7 +25,6 @@ onMounted(async () => {
   friendStore.getFriends()
   friendStore.getPending()
 
-  await navigator.mediaDevices.getUserMedia(bunStore.constraints)
 })
 
 const hamburgerToggle: Ref<boolean> = ref(false)
@@ -44,14 +43,14 @@ function ToggleHamButton(): void {
       display: 'flex'
     })
     gsap.fromTo(
-      ul,
-      { x: 200 },
-      {
-        visibility: 'visible',
-        x: 0,
-        duration: 0.5,
-        ease: 'ease'
-      }
+        ul,
+        {x: 200},
+        {
+          visibility: 'visible',
+          x: 0,
+          duration: 0.5,
+          ease: 'ease'
+        }
     )
   }
 
@@ -60,13 +59,13 @@ function ToggleHamButton(): void {
       display: 'none'
     })
     gsap.fromTo(
-      ul,
-      { x: 0 },
-      {
-        x: 200,
-        duration: 0.5,
-        ease: 'ease'
-      }
+        ul,
+        {x: 0},
+        {
+          x: 200,
+          duration: 0.5,
+          ease: 'ease'
+        }
     )
   }
 }
@@ -79,18 +78,18 @@ const trysend = (): void => {
 
 const call: Ref<boolean> = ref(false)
 const unwatch = watch(
-  () => authStore.user,
-  () => {
-    if (authStore.user?.calls) {
-      if (authStore.user.calls.status === 'pending') call.value = true
-      if (authStore.user.calls.status === 'accepted') {
+    () => authStore.user,
+    () => {
+      if (authStore.user?.calls) {
+        if (authStore.user.calls.status === 'pending') call.value = true
+        if (authStore.user.calls.status === 'accepted') {
+          call.value = false
+          router.push({name: 'call'})
+        }
+      } else {
         call.value = false
-        router.push({ name: 'call' })
       }
-    } else {
-      call.value = false
     }
-  }
 )
 onUnmounted(() => {
   unwatch()
@@ -102,23 +101,23 @@ onUnmounted(() => {
   <account-popup v-if="authStore.accountPopup">Account</account-popup>
   <friend-popup v-if="friendStore.friendPopUp === 'add'">Add friend</friend-popup>
   <friend-popup v-if="friendStore.friendPopUp === 'pending'">Friend requests</friend-popup>
-  <DashboardHeader />
+  <DashboardHeader/>
   <main>
-    <app-sidebar />
+    <app-sidebar/>
     <div class="chat">
       <div v-if="friendStore.currentFriend" class="header">
         <UserInfo
-          :status="friendStore.currentFriend?.status"
-          :email="friendStore.currentFriend?.email"
-          :img="friendStore.currentFriend?.img"
-          >{{ friendStore.currentFriend?.username }}
+            :status="friendStore.currentFriend?.status"
+            :email="friendStore.currentFriend?.email"
+            :img="friendStore.currentFriend?.img"
+        >{{ friendStore.currentFriend?.username }}
         </UserInfo>
         <button
-          aria-label="navigation"
-          @click="ToggleHamButton"
-          aria-expanded="false"
-          class="hamburger"
-          id="dots-btn"
+            aria-label="navigation"
+            @click="ToggleHamButton"
+            aria-expanded="false"
+            class="hamburger"
+            id="dots-btn"
         >
           <span aria-hidden="true" class="icon" :class="{ hamB: hamburgerToggle }">
             <span></span>
@@ -128,27 +127,26 @@ onUnmounted(() => {
         </button>
 
         <ul class="icons" id="ul">
-          <li><img src="@/assets/images/call.png" alt="icon of a phone in grey" /></li>
+          <li><img src="@/assets/images/call.png" alt="icon of a phone in grey"/></li>
           <li @click="bunStore.CallPeer">
-            <img src="@/assets/images/videoCall.png" alt="icon of a camera in grey" />
+            <img src="@/assets/images/videoCall.png" alt="icon of a camera in grey"/>
           </li>
           <li @click="friendStore.unFriend()">
-            <img src="@/assets/images/unFriend.png" alt="icon of a man in grey" />
+            <img src="@/assets/images/unFriend.png" alt="icon of a man in grey"/>
           </li>
         </ul>
       </div>
       <ul class="messages">
         <li v-for="chatMessage in friendStore.chat.slice().reverse()" :key="chatMessage.text">
-          <chat-bubble :message="chatMessage">{{ chatMessage.sender?.username }}</chat-bubble>
+          <chat-bubble :firebase="true" :message="chatMessage">{{ chatMessage.sender?.username }}</chat-bubble>
         </li>
       </ul>
 
-      <!--      <pre>{{ friendStore.chat }}</pre>-->
 
       <form @submit.prevent="trysend" class="sendMessage">
-        <FormField id="" v-model="message" type="text" />
+        <FormField id="" v-model="message" type="text"/>
         <button type="submit">
-          <p>send message</p>
+          <span>send message</span>
           <i class="fa-solid fa-paper-plane"></i>
         </button>
       </form>
@@ -189,6 +187,13 @@ main {
     margin-top: 0.5rem;
     padding: 0;
     display: none;
+    transition-duration: 0.2s;
+
+    li:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+      transition-duration: 0.2s;
+    }
 
     img {
       width: 2rem;
@@ -226,7 +231,7 @@ main {
     color: var(--foreground);
     border: none;
 
-    p {
+    span {
       display: none;
     }
   }
@@ -280,7 +285,7 @@ main {
     button {
       aspect-ratio: revert;
 
-      p {
+      span {
         display: block;
       }
 

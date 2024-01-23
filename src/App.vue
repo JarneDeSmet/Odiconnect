@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { useBunStore } from '@/stores/BunStore'
+import {onMounted} from "vue";
+import {useTensorflowStore} from "@/stores/TensorflowStore";
 
-useBunStore()
+// useBunStore()
+const tensorStore = useTensorflowStore()
+onMounted(() => {
+  tensorStore.loadModel()
+})
 </script>
 
 <template>
-  <router-view />
+  <router-view/>
 </template>
 
 <style scoped lang="scss"></style>

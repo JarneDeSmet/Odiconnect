@@ -16,7 +16,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tensorflow-models/handpose": "^0.1.0",
+    "@tensorflow/tfjs": "^4.15.0",
+    "@tensorflow/tfjs-backend-webgl": "^4.15.0",
+    "@tensorflow/tfjs-converter": "^4.15.0",
+    "@tensorflow/tfjs-core": "^4.15.0",
     "@types/firebase": "^3.2.1",
+    "fingerpose": "^0.1.0",
     "firebase": "^10.7.1",
     "gsap": "^3.12.4",
     "pinia": "^2.1.7",
@@ -27,6 +33,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",
     "@tsconfig/node18": "^18.2.2",
+    "@types/fingerpose": "^0.1.1",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^18.19.3",
     "@vitejs/plugin-vue": "^4.5.2",

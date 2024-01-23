@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/AuthStore'
-import { useBunStore } from '@/stores/BunStore'
-import type { UserType } from '@/interfaces'
-import type { Ref } from 'vue'
-import { ref } from 'vue'
+import {useAuthStore} from '@/stores/AuthStore'
+import {useBunStore} from '@/stores/BunStore'
+import type {UserType} from '@/interfaces'
+import BlueButton from "@/components/atoms/BlueButton.vue";
 
 const authStore = useAuthStore()
 const bunStore = useBunStore()
 
 const caller: UserType | undefined = authStore.allUsers.find(
-  (user) => user.uid === authStore.user?.calls.id
+    (user) => user.uid === authStore.user?.calls.id
 )
 </script>
 
@@ -17,17 +16,18 @@ const caller: UserType | undefined = authStore.allUsers.find(
   <div v-if="caller" class="overlay">
     <Transition appear name="slide-fade">
       <div v-if="authStore.user?.calls.caller !== 'me'" class="inner">
-        <h3>{{ caller.username }} is calling</h3>
+        <h2>{{ caller.username }} is calling</h2>
         <div class="buttons">
-          <button @click="bunStore.AcceptCall(caller.uid)">Accept</button>
-          <button @click="bunStore.DeclineCall(caller.uid)">Decline</button>
+          <blue-button @click="bunStore.AcceptCall(caller.uid)" type="button">Accept</blue-button>
+          <blue-button @click="bunStore.DeclineCall(caller.uid)" type="button">Decline</blue-button>
+
         </div>
       </div>
 
       <div v-else class="inner">
-        <h3>calling {{ caller.username }}</h3>
+        <h2>calling {{ caller.username }}</h2>
         <div class="buttons">
-          <button @click="bunStore.DeclineCall(caller.uid)">Cancel</button>
+          <blue-button @click="bunStore.DeclineCall(caller.uid)" type="button">Cancel</blue-button>
         </div>
       </div>
     </Transition>
@@ -67,7 +67,7 @@ const caller: UserType | undefined = authStore.allUsers.find(
     background-color: #2b2d31;
     color: var(--foreground);
     padding: 0.5rem 1rem 2rem;
-    min-height: 70%;
+    min-height: 50%;
     border-radius: 3px;
 
     i:not(.edit) {
@@ -89,80 +89,16 @@ const caller: UserType | undefined = authStore.allUsers.find(
       font-weight: 400;
     }
 
-    p {
-      text-align: center;
-      font-weight: 300;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
   }
 }
 
-.img {
+.buttons{
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: fit-content;
-
-  img {
-    width: 4rem;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 50%;
-
-    &:hover {
-      filter: brightness(50%);
-      cursor: pointer;
-    }
-  }
-
-  i {
-    position: absolute;
-    margin-left: 3rem;
-    margin-top: 3rem;
-  }
-}
-
-form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 2rem;
 
-  .btn {
-    width: 100%;
-    margin-top: 2rem;
-  }
-}
-
-#image {
-  display: none;
-}
-
-.dropdown {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 0.3rem;
-  font-weight: 400;
-  width: 100%;
-
-  select {
-    background: #1e1f22;
-    border: none;
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-    padding-left: 0.5rem;
-    color: var(--foreground);
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
+  margin-top: 5rem;
 }
 </style>
