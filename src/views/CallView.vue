@@ -162,7 +162,7 @@ const createPeerConnection = async (): Promise<void> => {
   }
 
   peerConnection.onconnectionstatechange = () => {
-    if (peerConnection.connectionState === 'connected'){
+    if (peerConnection.connectionState === 'connected') {
       runHandpose()
     }
 
@@ -198,7 +198,7 @@ const screenConstraints = {
   },
   audio: true
 };
-const toggleStream = async ():Promise<void> => {
+const toggleStream = async (): Promise<void> => {
   if (isScreenSharing.value) {
     localStream = await navigator.mediaDevices.getUserMedia(constraints);
     me.value.srcObject = localStream;
@@ -215,7 +215,7 @@ const toggleStream = async ():Promise<void> => {
   }
 
   if (peerConnection) {
-    peerConnection.getSenders().forEach((sender):void => {
+    peerConnection.getSenders().forEach((sender): void => {
       if (sender.track) {
         if (sender.track.kind === 'video') {
           sender.replaceTrack(localStream.getVideoTracks()[0]);
@@ -272,7 +272,7 @@ const unwatch = watch(
 )
 
 const runHandpose = async (): Promise<void> => {
-   const net: handpose.HandPose = await handpose.load()
+  const net: handpose.HandPose = await handpose.load()
 
   setInterval(() => {
     detect(net)
@@ -306,7 +306,7 @@ const detect = async (net: handpose.HandPose): Promise<void> => {
         loveYouGesture
       ]);
 
-         const gesture = await GE.estimate(hand[0].landmarks, 8)
+      const gesture = await GE.estimate(hand[0].landmarks, 8)
 
       if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
         const confidence: Array<number> = gesture.gestures.map((prediction: prediction) => prediction.score)
@@ -380,25 +380,33 @@ main {
   height: calc(100vh - 3.5rem);
   flex-grow: 1;
 
-  .video{
+  .video {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    min-height: 98vh;
+
     video {
-      width: 25rem;
-      height: 17rem;
-      background-color: black;
+      width: 27rem;
+      height: 19rem;
       margin-right: 1rem;
     }
 
     .tensor {
+      width: 27rem;
+      height: 19rem;
+      position: relative;
+
       video {
         position: absolute;
       }
 
       canvas {
         position: absolute;
-        width: 25rem;
-        height: 17rem;
+        width: 27rem;
+        height: 19rem;
       }
     }
   }
@@ -491,4 +499,18 @@ main {
 
   }
 }
+
+@media (min-width: 60.063rem) {
+  main {
+    .video {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+
+
+}
+
+
 </style>
