@@ -13,12 +13,12 @@ you can preview the current site here: https://odiconnect.jarnedesmet.ikdoeict.b
 
 ## Visuals
 
-![](Screenshots/Landing-page.png)
-![](src/images/ScreenShots/Screenshot_2.png)
-![](src/images/ScreenShots/Screenshot_3.png)
-![](src/images/ScreenShots/Screenshot_4.png)
-![](src/images/ScreenShots/Screenshot_5.png)
-![](src/images/ScreenShots/Screenshot_6.png)
+![](Screenshots/Landing.png)
+![](Screenshots/login.png)
+![](Screenshots/register.png)
+![](Screenshots/chat.png)
+![](Screenshots/profile.png)
+![](Screenshots/call.png)
 
 ## Installation and setup
 
