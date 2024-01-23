@@ -1,68 +1,67 @@
-# odiConnect
+# Odiconnect -> chat and call with friends
 
-This template should help get you started developing with Vue 3 in Vite.
+## Description
 
-## Recommended IDE Setup
+This website uses Vue, webRTC, Typescript, TensorflowJS, Gsap, Firebase and Bun to make it possible to befriend people and chat and call them.
+Befriending and authentication is done with Firebase. Gsap is used for animating some parts of the website. webRTC is obviously used to make a peer to peer connection 
+with another person. when connected you are able to share your screen, disable your camera and microphone and chat in a call specific chat. TensorflowJS is used to recognize a person's hand. 
+when you show a peace sign, thumbs up or the i love you hand sign it will put an emoji in the chat for you to send to the peer. 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Bun is used with websockets to make a singaling server. U can find this project on its own with this link: https://github.com/JarneDeSmet/bun-websocket
 
-## Type Support for `.vue` Imports in TS
+you can preview the current site here: https://odiconnect.jarnedesmet.ikdoeict.be/
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Visuals
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+![](Screenshots/Landing-page.png)
+![](src/images/ScreenShots/Screenshot_2.png)
+![](src/images/ScreenShots/Screenshot_3.png)
+![](src/images/ScreenShots/Screenshot_4.png)
+![](src/images/ScreenShots/Screenshot_5.png)
+![](src/images/ScreenShots/Screenshot_6.png)
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Installation and setup
 
-## Customize configuration
+**using npm**
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- npm install
+- npm run dev
 
-## Project Setup
+## Usage
 
-```sh
-npm install
-```
+**Here you find some links to how to use the libraries I used for this project.**
 
-### Compile and Hot-Reload for Development
+WebRTC: https://webrtc.org/ and https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API
+Vue: https://vuejs.org/guide/introduction.html
+TensorflowJS: https://www.tensorflow.org/js
+Gsap.js: https://greensock.com/gsap/
+Firebase: https://firebase.google.com/docs
+Bun: https://bun.sh/docs
+Bun websockets: https://bun.sh/docs/api/websockets
 
-```sh
-npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
+## Support
 
-```sh
-npm run build
-```
+If you need help or have a question, email this address: jarne.desmet@student.odisee.be
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Roadmap
 
-```sh
-npm run test:unit
-```
+- Styling of the call page needs a little work
+- Optimizing the speeds of the site -> TensorflowJS slows it down
+- Optimizing of the webRTC connection for a more consistent connecting method
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+## Contributing
 
-```sh
-npm run test:e2e:dev
-```
+I am definitely open for Contributors. Just email me if you are interested.
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+## License
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+**This project is licenced with a GNU GPLv3 licence.**
 
-```sh
-npm run build
-npm run test:e2e
-```
+Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works
+and modifications, which include larger works using a licensed work, under the same license. Copyright and license
+notices must be preserved. Contributors provide an express grant of patent rights.
 
-### Lint with [ESLint](https://eslint.org/)
+## Project status
 
-```sh
-npm run lint
-```
+Development will most likely stop after 24/01/2024 since I will have to focus on other school projects.
