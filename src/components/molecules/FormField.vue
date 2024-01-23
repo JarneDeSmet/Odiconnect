@@ -33,7 +33,7 @@ defineProps({
       :placeholder="placeholder"
       :value="modelValue"
       :autocomplete="type"
-      @input="$emit('update:modelValue', $event.target?.value)"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       :type="type"
       :id="id"
     />

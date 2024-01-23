@@ -11,7 +11,7 @@ import type {ChatType, UserType} from '@/interfaces'
 
 export const useBunStore = defineStore('bun-communication', () => {
     // const socket: WebSocket = new WebSocket('ws://localhost:3000')
-    const socket: WebSocket = new WebSocket('ws://buntest-odisee.koyeb.app/3000')
+    const socket: WebSocket = new WebSocket('wss://buntest-odisee.koyeb.app/3000')
     const auth: Auth = getAuth()
     const friendStore = useFriendStore()
     const authStore = useAuthStore()

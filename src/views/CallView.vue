@@ -305,7 +305,8 @@ const detect = async (net: handpose.HandPose): Promise<void> => {
         fp.Gestures.ThumbsUpGesture,
         loveYouGesture
       ]);
-      const gesture = await GE.estimate(hand[0].landmarks, 8)
+
+         const gesture = await GE.estimate(hand[0].landmarks, 8)
 
       if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
         const confidence: Array<number> = gesture.gestures.map((prediction: prediction) => prediction.score)

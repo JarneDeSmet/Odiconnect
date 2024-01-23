@@ -1,5 +1,5 @@
-import type {JointsType} from "@/interfaces";
 import type {AnnotatedPrediction} from "@tensorflow-models/handpose";
+import type {JointsType} from "@/interfaces";
 
 const fingerJoints: JointsType = {
     thumb: [0, 1, 2, 3, 4],
@@ -16,10 +16,11 @@ export const drawHand = (predictions: Array<AnnotatedPrediction>, ctx: CanvasRen
 
             for (let j = 0; j < Object.keys(fingerJoints).length; j++) {
                 const finger = Object.keys(fingerJoints)[j]
+                const fingerKey = finger as keyof typeof fingerJoints;
 
-                for (let k = 0; k < fingerJoints[finger].length - 1; k++) {
-                    const firstJointIndex = fingerJoints[finger][k]
-                    const secondJointIndex = fingerJoints[finger][k + 1]
+                for (let k = 0; k < fingerJoints[fingerKey].length - 1; k++) {
+                    const firstJointIndex = fingerJoints[fingerKey][k]
+                    const secondJointIndex = fingerJoints[fingerKey][k + 1]
 
                     ctx.beginPath()
                     ctx.moveTo(landmarks[firstJointIndex][0], landmarks[firstJointIndex][1])
