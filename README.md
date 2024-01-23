@@ -31,13 +31,13 @@ you can preview the current site here: https://odiconnect.jarnedesmet.ikdoeict.b
 
 **Here you find some links to how to use the libraries I used for this project.**
 
-WebRTC: https://webrtc.org/ and https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API
-Vue: https://vuejs.org/guide/introduction.html
-TensorflowJS: https://www.tensorflow.org/js
-Gsap.js: https://greensock.com/gsap/
-Firebase: https://firebase.google.com/docs
-Bun: https://bun.sh/docs
-Bun websockets: https://bun.sh/docs/api/websockets
+- WebRTC: https://webrtc.org/ and https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API
+- Vue: https://vuejs.org/guide/introduction.html
+- TensorflowJS: https://www.tensorflow.org/js
+- Gsap.js: https://greensock.com/gsap/
+- Firebase: https://firebase.google.com/docs
+- Bun: https://bun.sh/docs
+- Bun websockets: https://bun.sh/docs/api/websockets
 
 
 ## Support
